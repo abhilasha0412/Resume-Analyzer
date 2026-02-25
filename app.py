@@ -98,7 +98,7 @@ job_skills = {
     ],
     "HR": [
         "recruitment", "onboarding", "payroll", "employee engagement",
-        "talent acquisition", "training", "performance evaluation", "hr policies"
+        "credit assessment", "training", "performance evaluation", "financial analysis","hr policies"
     ]
 }
 
