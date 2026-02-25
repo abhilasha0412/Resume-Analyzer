@@ -95,6 +95,10 @@ job_skills = {
     "Java Developer": [
         "java", "spring", "hibernate", "jdbc",
         "sql", "maven", "rest api"
+    ],
+    "HR": [  # New HR/MBA role
+        "recruitment", "onboarding", "payroll", "employee engagement",
+        "talent acquisition", "training", "performance evaluation", "hr policies"
     ]
 }
 
@@ -170,6 +174,15 @@ if st.button("🔍 Analyze Resume"):
                 skill_badges += f'<span class="badge">{skill}</span>'
 
         st.markdown(skill_badges, unsafe_allow_html=True)
+
+        # -----------------------------
+        # HR Specific Tip
+        # -----------------------------
+        if best_role == "HR":
+            st.info(
+                "💡 Tip: Highlight HR certifications, employee engagement projects, and payroll experience "
+                "to improve your chances in recruitment roles."
+            )
 
         # Suggest improvement if score < 80%
         if best_score < 80:
