@@ -1,31 +1,46 @@
 import pandas as pd
-import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import MultinomialNB
+import pickle
 
-# Load dataset
-df = pd.read_csv("resume_dataset.csv")
+# -----------------------------
+# Step 1: Create Dataset
+# -----------------------------
+data = pd.DataFrame([
+    # Data Scientist
+    ["Experienced in Python, Machine Learning, TensorFlow, NLP, data analysis using pandas and numpy.", "Data Scientist"],
+    ["Worked on deep learning, computer vision, PyTorch, neural networks.", "Data Scientist"],
 
-# Features and target
-X = df["resume_text"]
-y = df["category"]
+    # Web Application Developer
+    ["Skilled in HTML, CSS, JavaScript, React.js, building responsive web applications.", "Web Application Developer"],
+    ["Built full-stack applications using Django, Node.js, MongoDB and REST APIs.", "Web Application Developer"],
 
-# Convert text to numerical features
-vectorizer = TfidfVectorizer(stop_words="english")
-X_vectorized = vectorizer.fit_transform(X)
+    # Java Developer
+    ["Strong knowledge of Java, Spring Boot, MySQL, backend API development.", "Java Developer"],
 
-# Split dataset
-X_train, X_test, y_train, y_test = train_test_split(
-    X_vectorized, y, test_size=0.2, random_state=42
-)
+    # HR / MBA
+    ["Handled recruitment process, onboarding, payroll management, employee engagement.", "HR"],
+    ["Managed talent acquisition, training, and performance evaluation.", "HR"],
+    ["Experience in HR policies, employee engagement programs, and payroll management.", "HR"]
+], columns=['resume_text','category'])
 
-# Train model
-model = LogisticRegression()
-model.fit(X_train, y_train)
+# -----------------------------
+# Step 2: Vectorize Resumes
+# -----------------------------
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(data['resume_text'])
+y = data['category']
 
-# Save model and vectorizer
+# -----------------------------
+# Step 3: Train Model
+# -----------------------------
+model = MultinomialNB()
+model.fit(X, y)
+
+# -----------------------------
+# Step 4: Save Model & Vectorizer
+# -----------------------------
 pickle.dump(model, open("model.pkl", "wb"))
 pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
 
-print("Model trained and saved successfully 🚀")
+print("✅ Model and vectorizer saved successfully!")

@@ -96,7 +96,7 @@ job_skills = {
         "java", "spring", "hibernate", "jdbc",
         "sql", "maven", "rest api"
     ],
-    "HR": [  # New HR/MBA role
+    "HR": [
         "recruitment", "onboarding", "payroll", "employee engagement",
         "talent acquisition", "training", "performance evaluation", "hr policies"
     ]
@@ -109,7 +109,7 @@ st.markdown(
     f"""
     <div style="text-align:center; padding:15px; background-color:#4F46E5; color:white; border-radius:10px;">
         <h1>💼 AI Resume Screening & Skill Analyzer</h1>
-        <p>Upload your resume and discover your top job fit with skill gaps 🚀</p>
+        <p>Upload your resume and discover your job fit with skill gaps 🚀</p>
     </div>
     """,
     unsafe_allow_html=True
@@ -140,10 +140,10 @@ if st.button("🔍 Analyze Resume"):
         results = sorted(zip(classes, probabilities), key=lambda x: x[1], reverse=True)
 
         # -----------------------------
-        # Dashboard Cards for Top 3 Roles
+        # Show All Roles with Progress Bars
         # -----------------------------
-        st.subheader("🎯 Top Predicted Roles")
-        for role, prob in results[:3]:
+        st.subheader("🎯 Role Prediction & Probability")
+        for role, prob in results:
             percentage = round(prob * 100, 2)
             st.markdown(
                 f"""
@@ -160,20 +160,34 @@ if st.button("🔍 Analyze Resume"):
         st.success(f"🏆 Best Match: {best_role} ({best_score}%)")
 
         # -----------------------------
-        # Skill Gap Analysis with Badges
+        # Skill Gap Analysis with HR-friendly Matching
         # -----------------------------
         st.subheader("📌 Skill Gap Analysis")
         resume_lower = resume_text.lower()
         required_skills = job_skills.get(best_role, [])
 
         skill_badges = ""
+        missing_skills = []
+
         for skill in required_skills:
-            if skill in resume_lower:
+            skill_lower = skill.lower()
+            # Check if all words of a multi-word skill are present
+            if all(word in resume_lower for word in skill_lower.split()):
                 skill_badges += f'<span class="badge present">{skill}</span>'
             else:
                 skill_badges += f'<span class="badge">{skill}</span>'
+                missing_skills.append(skill)
 
         st.markdown(skill_badges, unsafe_allow_html=True)
+
+        # Show missing skills
+        if missing_skills:
+            st.warning("⚠️ Missing Important Skills:")
+            for skill in missing_skills:
+                st.write(f"• {skill}")
+            st.info("💡 Adding these skills can improve your chances significantly!")
+        else:
+            st.success("🎉 Great! Your resume includes all key skills for this role.")
 
         # -----------------------------
         # HR Specific Tip
