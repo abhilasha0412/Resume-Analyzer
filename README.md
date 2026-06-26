@@ -119,7 +119,7 @@ http://localhost:8501
 
 ## 🎯 Role Match Score
 
-![Role Match](images/role-match.png)
+![Role Match](images/role-matches.png)
 
 ---
 
