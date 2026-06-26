@@ -27,10 +27,12 @@ The system helps candidates improve resumes and increase job selection chances t
 - HTML
 - CSS
 - JavaScript
+ 
+## Framework
+- Streamlit
 
 ## Backend
 - Python
-- Flask
 
 ## Machine Learning
 - Scikit-learn
@@ -72,26 +74,31 @@ cd Resume-Analyzer
 
 ---
 
-## 2️⃣ Install Dependencies
+# 📦 Installation Dependencies
+
+Install all required Python libraries using:
 
 ```bash
-pip install -r requirements.txt
-```
-
----
+pip install -r requirements.txt---
+# 📄 Required Libraries
+- streamlit
+- PyPDF2
+- reportlab
+- pandas
+- scikit-learn
+- nltk
 
 ## 3️⃣ Run Application
 
 ```bash
-python app.py
+python -m streamlit run app.py
 ```
 
 ---
-
 # 🌐 Open in Browser
 
 ```text
-http://localhost:5000
+http://localhost:8501
 ```
 
 ---
